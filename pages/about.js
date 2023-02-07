@@ -5,11 +5,24 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Router, { useRouter } from "next/router"
 import { caroselImage } from '../comp/carosel'
+import { NavBar } from '../comp/nav.js'
 
 // const inter = Inter({ subsets: ['latin'] })
 
 // pages/about.js
 export default function About() {
+
+  const r = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const openMenu = () => {
+      if (isOpen === false) {
+        setIsOpen(true)
+      } else if (isOpen === true) {
+          setIsOpen(false)
+      }
+      console.log("heeeeeerrrrrr")
+  }
+
   return (
     <>
       <Head>
@@ -26,6 +39,23 @@ export default function About() {
 
 
     <main className={styles.mainContainer}>
+
+    <div className={styles.hamburgerMenu}>
+        <img 
+          src="/icons/menu-icon.png" 
+          width="15%"
+          className={isOpen === false ? 
+          styles.hamburger : styles.hamburger + ' ' + styles.active}
+          onClick={openMenu} 
+        />
+
+        {/* <ul className={isOpen === false ? styles.navmenu : styles.navmenu + ' ' + styles.active}></ul> */}
+
+        {isOpen ? 
+        <NavBar /> : null
+        }
+
+      </div>
 
         <div className={styles.separator}>
           <h1 className={styles.aboutHeader}>About Us</h1>
